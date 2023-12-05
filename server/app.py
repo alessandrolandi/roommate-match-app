@@ -11,5 +11,13 @@ app = Flask(
 def home():
     return render_template("home.html")
 
+@app.route("/chat")
+def chat():
+    return render_template("chat.html")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3000)
+    app.run(debug=True)
