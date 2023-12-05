@@ -41,3 +41,5 @@ def edit_user(user_id):
     )
 
     return redirect(url_for('display_all_contacts'))
+
+#stuff 
