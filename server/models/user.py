@@ -7,6 +7,7 @@ class UserFactory:
     def get_user(self):
         user = {
             "_id": uuid.uuid4().hex,
+            "username": request.form.get("username"),
             "name": request.form.get("name"),
             "password": request.form.get("password"),
             "matches": [],

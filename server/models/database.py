@@ -34,7 +34,7 @@ class Database:
         matches = []
         for match in session_matches:
             matches.append(
-                self.db.users.find_one({"name": match },{"password": False},{"matches": False})
+                self.db.users.find_one({"username": match },{"password": False},{"matches": False})
             )
         
         return matches
@@ -42,5 +42,5 @@ class Database:
 
     def add_user_matches(self, user, matches):
         self.db.users.find_one_and_update(
-            {"name": user.get("name")}, {'$push': {'matches': matches}}
+            {"username": user.get("username")}, {'$push': {'matches': matches}}
             )
