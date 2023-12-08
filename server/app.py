@@ -28,6 +28,9 @@ try:
 except Exception as e:
     print(e)
 
+# Create an instance of the database
+db = mongo.db
+
 app = Flask(
     __name__, template_folder="../client/templates", static_folder="../client/static"
 )
@@ -47,30 +50,31 @@ def login_required(f):
     return wrap
 
 
-# routes
+# Routes
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        from models.user import User
+        from models.authentication import UserAuthentication
 
-        return User().login()
+        return UserAuthentication().login()
     return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        from models.user import User
+        from models.authentication import UserAuthentication
 
-        return User().signup()
+        return UserAuthentication().signup()
     return render_template("registration.html")
 
 
 @app.route("/signout")
 def signout():
-    from models.user import User
-
-    return User().signout()
+    from models.authentication import UserAuthentication
+    UserAuthentication().signout()
+    
+    return redirect(url_for('login'))
 
 
 @app.route("/home/")

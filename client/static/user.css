@@ -29,7 +29,7 @@ body{
 
 .user-container{
     background-color: #161A30;
-    width: 40%;    
+    min-width: 450px;    
     min-height: 70vh;
     display: flex;
     flex-direction: column;
