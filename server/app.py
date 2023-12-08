@@ -1,37 +1,30 @@
 """Module providing routing."""
-import pymongo
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-import os
-from dotenv import load_dotenv
 from flask import (
     Flask,
     render_template,
     request,
     redirect,
-    abort,
     url_for,
-    make_response,
     jsonify,
     session,
 )
+import os
+from dotenv import load_dotenv
 from functools import wraps
+from models.database import Database
 
+
+# Create connection to database
 load_dotenv()
 uri = os.getenv("URI")
+database = Database()
+db = database.db
 
-mongo = MongoClient(uri, server_api=ServerApi("1"))
 
-try:
-    mongo.admin.command("ping")
-    print("Successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-
+#Create app instance
 app = Flask(
     __name__, template_folder="../client/templates", static_folder="../client/static"
 )
-
 app.secret_key = os.getenv("SECRET_KEY")
 
 
@@ -47,36 +40,39 @@ def login_required(f):
     return wrap
 
 
-# routes
+# Routes
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        from models.user import User
+        from models.authentication import UserAuthentication
 
-        return User().login()
+        return UserAuthentication().login()
     return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        from models.user import User
+        from models.authentication import UserAuthentication
 
-        return User().signup()
+        return UserAuthentication().sign_up()
     return render_template("registration.html")
 
 
 @app.route("/signout")
 def signout():
-    from models.user import User
+    from models.authentication import UserAuthentication
 
-    return User().signout()
+    UserAuthentication().sign_out()
+
+    return redirect(url_for("login"))
 
 
 @app.route("/home/")
 @login_required
 def home():
-    return render_template("home.html")
+    matches = database.get_matched_users(session["user"])
+    return render_template("home.html", matches=matches)
 
 
 @app.route("/chat")
@@ -88,7 +84,7 @@ def chat():
 @app.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html")
+    return render_template("profile.html", user=session["user"])
 
 
 if __name__ == "__main__":
