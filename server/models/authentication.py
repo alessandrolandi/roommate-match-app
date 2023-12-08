@@ -6,7 +6,7 @@ import uuid
 
 
 class UserAuthentication:
-    def signup(self):
+    def sign_up(self):
         user = User().create()
 
         if db.users.find_one({"name": user["name"]}):
@@ -34,5 +34,5 @@ class UserAuthentication:
 
         return jsonify(user), 200
 
-    def signout(self):
+    def sign_out(self):
         session.clear()

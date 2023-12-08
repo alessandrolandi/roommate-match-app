@@ -1,35 +1,22 @@
 """Module providing routing."""
-import pymongo
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-import os
-from dotenv import load_dotenv
 from flask import (
     Flask,
     render_template,
     request,
     redirect,
-    abort,
     url_for,
-    make_response,
     jsonify,
     session,
 )
+import os
+from dotenv import load_dotenv
 from functools import wraps
+from models.database import Database
 
 load_dotenv()
 uri = os.getenv("URI")
 
-mongo = MongoClient(uri, server_api=ServerApi("1"))
-
-try:
-    mongo.admin.command("ping")
-    print("Successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-
-# Create an instance of the database
-db = mongo.db
+db = Database().get_connection()
 
 app = Flask(
     __name__, template_folder="../client/templates", static_folder="../client/static"
@@ -65,14 +52,14 @@ def register():
     if request.method == "POST":
         from models.authentication import UserAuthentication
 
-        return UserAuthentication().signup()
+        return UserAuthentication().sign_up()
     return render_template("registration.html")
 
 
 @app.route("/signout")
 def signout():
     from models.authentication import UserAuthentication
-    UserAuthentication().signout()
+    UserAuthentication().sign_out()
     
     return redirect(url_for('login'))
 
