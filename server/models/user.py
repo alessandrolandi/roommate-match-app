@@ -3,8 +3,8 @@ from passlib.hash import pbkdf2_sha256
 import uuid
 
 
-class User:
-    def create(self):
+class UserFactory:
+    def get_user(self):
         user = {
             "_id": uuid.uuid4().hex,
             "name": request.form.get("name"),

@@ -6,7 +6,7 @@ from models.user import User
 
 class UserAuthentication:
     def sign_up(self):
-        user = User().create()
+        user = UserFactory().get_user()
 
         if db.users.find_one({"name": user["name"]}):
             return jsonify({"error": "Name already in use"}), 400
