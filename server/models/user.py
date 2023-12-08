@@ -9,6 +9,7 @@ class User:
             "_id": uuid.uuid4().hex,
             "name": request.form.get("name"),
             "password": request.form.get("password"),
+            "matches": [],
         }
 
         user["password"] = pbkdf2_sha256.encrypt(user["password"])

@@ -17,7 +17,8 @@ from models.database import Database
 # Create connection to database
 load_dotenv()
 uri = os.getenv("URI")
-db = Database().get_connection()
+database = Database()
+db = database.db
 
 
 #Create app instance
@@ -70,7 +71,8 @@ def signout():
 @app.route("/home/")
 @login_required
 def home():
-    return render_template("home.html")
+    matches = database.get_matched_users(session["user"])
+    return render_template("home.html", matches=matches)
 
 
 @app.route("/chat")
@@ -82,7 +84,7 @@ def chat():
 @app.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html")
+    return render_template("profile.html", user=session["user"])
 
 
 if __name__ == "__main__":

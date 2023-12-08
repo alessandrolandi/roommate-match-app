@@ -16,6 +16,7 @@ class UserAuthentication:
 
         return jsonify({"error": "Something went wrong"}), 400
 
+
     def login(self):
         user = db.users.find_one({"name": request.form.get("name")})
 
@@ -26,12 +27,14 @@ class UserAuthentication:
 
         return jsonify({"error": "Invalid login credentials "}), 401
 
+
     def start_session(self, user):
         del user["password"]
         session["logged_in"] = True
         session["user"] = user
 
         return jsonify(user), 200
+
 
     def sign_out(self):
         session.clear()

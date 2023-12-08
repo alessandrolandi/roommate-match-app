@@ -27,15 +27,11 @@
             </a>
         </div>
         <div class="profile-container">
-            <div class="profile">
-                <p> name </p>
-            </div>
-            <div class="profile">
-                <p> name </p>
-            </div>
-            <div class="profile">
-                <p> name </p>
-            </div>
+            {% for match in matches %}
+                <div class="profile">
+                    <strong> {{match.name}} </strong>
+                </div>
+            {% endfor %}
         </div>
     </div>
   </body>
