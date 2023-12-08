@@ -13,15 +13,17 @@ from dotenv import load_dotenv
 from functools import wraps
 from models.database import Database
 
+
+# Create connection to database
 load_dotenv()
 uri = os.getenv("URI")
-
 db = Database().get_connection()
 
+
+#Create app instance
 app = Flask(
     __name__, template_folder="../client/templates", static_folder="../client/static"
 )
-
 app.secret_key = os.getenv("SECRET_KEY")
 
 
@@ -59,9 +61,10 @@ def register():
 @app.route("/signout")
 def signout():
     from models.authentication import UserAuthentication
+
     UserAuthentication().sign_out()
-    
-    return redirect(url_for('login'))
+
+    return redirect(url_for("login"))
 
 
 @app.route("/home/")
