@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='home.css') }}"
+      href="{{ url_for('static', filename='profile.css') }}"
     />
     <script
       src="https://kit.fontawesome.com/eac29ec11e.js"
@@ -26,13 +26,16 @@
                 <strong> profile </strong>
             </a>
         </div>
+        
         <div class="profile-container">
-            {% for match in matches %}
-                <div class="profile">
-                    <strong> {{match.name}} </strong>
-                </div>
-            {% endfor %}
+            <div class="profile">
+                <strong> {{user.name}} </strong>
+                <a href="/signout">
+                    <button> Sign Out </button>
+                </a>        
+            </div>
         </div>
-    </div>
+
+    </div> 
   </body>
 </html>

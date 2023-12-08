@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='user.css') }}"
+    />
+    <script
+      src="https://kit.fontawesome.com/eac29ec11e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body> 
+    <div class="container">
+        <div class="user-container">
+
+            <h1> Register </h1>
+
+            <form name="register-form">
+                <label for="name"> Name </label>
+                <input type="text" name="name" class="field" required>
+
+                <label for="password"> Password </label>
+                <input type="text" name="password" class="field" required>
+                
+                <p class="error error--hidden"> </p>
+
+                <input type="submit" value="Sign Up" class="btn">
+            </form>
+
+            <a href = "{{url_for('login')}}">
+                <strong> Already have an account? Login! </strong>
+            </a>
+
+        </div>
+    </div>
+
+    <script src="/static/js/jquery.js"> </script>
+    <script src="/static/js/script.js"> </script>
+
+  </body>
+  </html>
