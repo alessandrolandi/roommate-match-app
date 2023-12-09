@@ -34,6 +34,9 @@ class UserAuthentication:
         session["user"] = user
 
         return jsonify(user), 200
+    
+    def edit_session_name(self):
+        session["name"] = request.form.get("name")
 
 
     def sign_out(self):

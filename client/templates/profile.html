@@ -29,13 +29,27 @@
         
         <div class="profile-container">
             <div class="profile">
-                <strong> {{user.name}} </strong>
+                <strong>@{{user.username}}</strong>
+                <strong>@{{user.name}}</strong>
+
+                <form name="edit-form">
+                  <label for="name"> Name: </label>
+                  <input type="text" name="name" class="field" required>
+  
+                  <p class="error error--hidden"> </p>
+      
+                  <input type="submit" value="Save" class="btn">
+                </form>
+
                 <a href="/signout">
                     <button> Sign Out </button>
                 </a>        
+
             </div>
         </div>
 
     </div> 
+    <script src="/static/js/jquery.js"> </script>
+    <script src="/static/js/script.js"> </script>
   </body>
 </html>

@@ -1,7 +1,9 @@
 import pymongo
+from flask import Flask, request
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import array
+
 
 class Database:
     db = ""
@@ -44,3 +46,9 @@ class Database:
         self.db.users.find_one_and_update(
             {"username": user.get("username")}, {'$push': {'matches': matches}}
             )
+        
+    def edit_user_profile(self,user):
+        self.db.users.find_one_and_update(
+            {"username": user.get("username")} , {'name': request.form.get("name")}
+            )
+        
