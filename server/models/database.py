@@ -42,5 +42,5 @@ class Database:
 
     def add_user_matches(self, user, matches):
         self.db.users.find_one_and_update(
-            {"name": user.get("name")}, {$push: {'matches': matches}}
+            {"name": user.get("name")}, {'$push': {'matches': matches}}
             )

@@ -1,13 +1,14 @@
+
 import pymongo
-import mongo
 import requests
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import pandas as pd
 import numpy as np
 import json
+from server.app import db
 
-users = mongo.db.user.find()
+users = db.user.find()
 survey = dict()
 for user in users:
     #user.survey should be stored as a dictionary, with keys uniform across all users
@@ -17,9 +18,12 @@ for user in users:
 survey_df = pd.DataFrame(survey)
 corr = survey_df.corr()
 
+print("stuff")
+
+"""
 for user in users:
     edit_matches(user)
-    user.matches = corr.loc[user].sort_values()
+    user.matches = corr.loc[user.name].sort_values()
     user.save()
 
 def edit_user(user_id):
@@ -43,3 +47,4 @@ def edit_user(user_id):
     return redirect(url_for('display_all_contacts'))
 
 #stuff 
+"""
