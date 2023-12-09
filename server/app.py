@@ -7,7 +7,7 @@ from flask import (
     url_for,
     jsonify,
     session,
-)
+) 
 import os
 from dotenv import load_dotenv
 from functools import wraps
@@ -57,7 +57,7 @@ def register():
 
         return UserAuthentication().sign_up()
     return render_template("registration.html")
-
+ 
 
 @app.route("/signout")
 def signout():
@@ -80,11 +80,20 @@ def home():
 def chat():
     return render_template("chat.html")
 
-
-@app.route("/profile")
+  
+@app.route("/profile/",methods=["GET", "POST"])
 @login_required
 def profile():
+    if request.method == "POST":
+        from models.authentication import UserAuthentication
+        database.user.edit_user_profile()
+        UserAuthentication.edit_session_name()
+        return render_template("profile.html",user = session["user"])
+
+    
     return render_template("profile.html", user=session["user"])
+    
+    
 
 
 if __name__ == "__main__":
