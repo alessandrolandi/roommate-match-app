@@ -47,8 +47,8 @@ class Database:
             {"username": user.get("username")}, {'$push': {'matches': matches}}
             )
         
-    def edit_user_profile(self,user):
+    def edit_user_profile(self, user):
         self.db.users.find_one_and_update(
-            {"username": user.get("username")} , {'name': request.form.get("name")}
+            {"username": user.get("username")} , {'$set': {'name': request.form.get("name")}}
             )
         

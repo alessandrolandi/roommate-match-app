@@ -71,26 +71,28 @@ def signout():
 @app.route("/home/")
 @login_required
 def home():
+    print(session["user"])
     matches = database.get_matched_users(session["user"])
     return render_template("home.html", matches=matches)
-
+ 
 
 @app.route("/chat")
 @login_required
 def chat():
     return render_template("chat.html")
-
   
+   
 @app.route("/profile/",methods=["GET", "POST"])
-@login_required
+@login_required 
 def profile():
     if request.method == "POST":
         from models.authentication import UserAuthentication
-        database.user.edit_user_profile()
-        UserAuthentication.edit_session_name()
-        return render_template("profile.html",user = session["user"])
+        database.edit_user_profile(session["user"])
+        UserAuthentication().edit_session_name()
+        resp = jsonify(success=True)
+        return resp
 
-    
+      
     return render_template("profile.html", user=session["user"])
     
     
