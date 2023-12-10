@@ -8,7 +8,6 @@ import array
 class Database:
     db = ""
     
-
     def __init__(self):
         from app import uri
 
