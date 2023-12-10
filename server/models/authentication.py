@@ -36,7 +36,13 @@ class UserAuthentication:
         return jsonify(user), 200
     
     def edit_session_name(self):
-        session["name"] = request.form.get("name")
+        user = db.users.find_one({"username": session["user"]["username"]})
+        session.clear()
+        del user["password"]
+        session["logged_in"] = True
+        session["user"] = user
+
+        
 
 
     def sign_out(self):
