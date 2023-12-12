@@ -21,6 +21,14 @@ body{
     padding-bottom: 20vh;
 }
 
+#messages{
+    background-color: white;
+    border: 1px black solid;
+    border-radius: 25px;
+    height: 150px;
+    margin: 2em;
+} 
+
 .navbar{
     display: flex;
     flex-direction: row;
