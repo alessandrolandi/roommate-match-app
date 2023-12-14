@@ -16,6 +16,20 @@ class UserAuthentication:
 
         return jsonify({"error": "Something went wrong"}), 400
 
+    def survey(self, user):
+        survey = [
+            request.form.get("interests"),
+            request.form.get("bedtime"),
+            request.form.get("tidy"),
+            request.form.get("quiet"),
+        ]
+
+        if db.users.find_one_and_update(
+            {"username": user.get("username")}, {"$push": {"survey": survey}}
+        ):
+            return jsonify({"Success": "Survey added"}), 200
+
+        return jsonify({"error": "Something went wrong"}), 400
 
     def login(self):
         user = db.users.find_one({"username": request.form.get("username")})
@@ -27,23 +41,19 @@ class UserAuthentication:
 
         return jsonify({"error": "Invalid login credentials "}), 401
 
-
     def start_session(self, user):
         del user["password"]
         session["logged_in"] = True
         session["user"] = user
 
         return jsonify(user), 200
-    
+
     def edit_session_name(self):
         user = db.users.find_one({"username": session["user"]["username"]})
         session.clear()
         del user["password"]
         session["logged_in"] = True
         session["user"] = user
-
-        
-
 
     def sign_out(self):
         session.clear()

@@ -11,6 +11,7 @@ class UserFactory:
             "name": request.form.get("name"),
             "password": request.form.get("password"),
             "matches": [],
+            "survey": [],
         }
 
         user["password"] = pbkdf2_sha256.encrypt(user["password"])

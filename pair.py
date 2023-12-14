@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import json
 
-users = mongo.db.user.find()
+users = mongo.db.users.find()
 survey = dict()
 for user in users:
     #user.survey should be stored as a dictionary, with keys uniform across all users

@@ -18,8 +18,11 @@ passlib = "*"
 uuid = "*"
 flask-socketio = "*"
 eventlet = "*"
+opencv-python = "*"
+distlib = "*"
+setuptools = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.10.0"

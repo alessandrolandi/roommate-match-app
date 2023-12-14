@@ -15,7 +15,6 @@
   </head>
   <body> 
     <div class="container">
-      <div class = "chat-container">
         <div class="navbar">
             <a href = "{{url_for('home')}}">
                 <i class="fa-solid fa-people-roof fa-2x"></i>
@@ -28,18 +27,26 @@
             </a>
         </div>
 
-        <h1>Hello {{username}}, welcome to chat room {{ room }}</h1>
+        <div class="message-room-container">
+    
+          <h1>Hello {{username}}, welcome to chat room {{ room }}</h1> 
 
-        <div id = "messages"></div>
+          <div class="messages-container">
+            <div class="past-messages">
+              {% for message in messages %}
+              <p> {{message.user}}: {{message.message}} </p>
+              {% endfor %}
+            <div id = "messages"></div>
+          </div>
 
-        <form id = "message_input_form">
-            <input id ="message_input" type = "text" placeholder="Enter Message">
-            <button type="submit">Send</button>
+              <form id = "message_input_form">
+                <input id ="message_input" type = "text" placeholder="Enter Message">
+                <button type="submit"></button>
+               </form>
+          </div>
 
-        </form>
-      </div>
+       </div>
     </div>
-
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 

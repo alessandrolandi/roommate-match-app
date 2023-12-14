@@ -53,46 +53,32 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 10vh;
 }
 
 .profile{
-    width: 60%;
-    min-height: 30vh;
+    min-height: 700px;
+    min-width: 500px;
     margin-top: 50px;
     background-color: #161A30;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     color: #F0ECE5;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
 }
 
-.profile > a > button {
-    height: 40px;
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    background-color: #31304D;
-    color: #F0ECE5;
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 40px;
+.profile > form > input{
+    margin-bottom: 10px;
 }
 
-.profile> a > button:hover {
-    cursor: pointer;
-}
-
-.profile > a > button:active {
-    opacity: 70%;
+.profile > form > h3{
+    margin-bottom: 10px;
 }
 
 .profile > form > .btn {
-    margin-top: 20px;
+    margin-top: 50px;
     height: 40px;
     width: 200px;
     display: flex;
@@ -105,10 +91,17 @@ body{
     border-radius: 5px;
 }
 
-.profile> form > .btn:hover {
+.profile > form > .btn:hover {
     cursor: pointer;
 }
 
 .profile > form > .btn:active {
     opacity: 70%;
+}
+.profile > a{
+    text-decoration: none;
+    border: none;
+    color: #F0ECE5;
+    outline: none;
+    margin-bottom: 50px;
 }
