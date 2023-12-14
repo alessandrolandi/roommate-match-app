@@ -63,6 +63,18 @@ def register():
         return UserAuthentication().sign_up()
     return render_template("registration.html")
 
+@app.route("/register/survey", methods=["GET", "POST"])
+@login_required
+def survey():
+    if request.method == "POST":
+        from models.authentication import UserAuthentication
+        
+        survey = UserAuthentication().survey()
+        database.add_survey(session["user"], survey)
+        resp = jsonify(success=True)
+        return resp
+    return render_template("survey.html")
+
 
 @app.route("/signout")
 def signout():

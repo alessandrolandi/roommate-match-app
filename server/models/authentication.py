@@ -15,6 +15,16 @@ class UserAuthentication:
             return self.start_session(user)
 
         return jsonify({"error": "Something went wrong"}), 400
+    
+    def survey(self):
+        survey = [
+            request.form.get("interests"),
+            request.form.get("bedtime"),
+            request.form.get("tidy"),
+            request.form.get("quiet")
+        ]
+        
+        return survey
 
     def login(self):
         user = db.users.find_one({"username": request.form.get("username")})
