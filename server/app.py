@@ -11,7 +11,7 @@ from flask import (
 import os
 from dotenv import load_dotenv
 from functools import wraps
-from models.database import Database
+from models.database import DatabaseProxy
 from flask_socketio import SocketIO, join_room, leave_room, send
 import eventlet
 
@@ -19,7 +19,7 @@ import eventlet
 # Create connection to database
 load_dotenv()
 uri = os.getenv("URI")
-database = Database()
+database = DatabaseProxy()
 db = database.db
 
 
@@ -97,9 +97,7 @@ def profile():
         from models.authentication import UserAuthentication
 
         database.edit_user_profile(session["user"])
-        UserAuthentication().edit_session_name()
-        resp = jsonify(success=True)
-        return resp
+        return  UserAuthentication().edit_session_name()
 
     return render_template("profile.html", user=session["user"])
 
@@ -107,7 +105,7 @@ def profile():
 @app.route("/chat")
 @login_required
 def chat():
-    messages = database.display_messages()
+    messages = database.get_messages()
     return render_template(
         "chat.html", messages=messages, username=session["user"]["name"], room=1
     )

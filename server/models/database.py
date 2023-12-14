@@ -6,7 +6,7 @@ import array
 from datetime import datetime, timedelta
 
 
-class Database:
+class DatabaseProxy:
     db = ""
 
     def __init__(self):
@@ -57,6 +57,6 @@ class Database:
             {"message": message, "user": user, "time": datetime.today()}
         )
 
-    def display_messages(self):
+    def get_messages(self):
         messages = self.db.messages.find()
         return messages
