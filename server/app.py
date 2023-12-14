@@ -63,16 +63,14 @@ def register():
         return UserAuthentication().sign_up()
     return render_template("registration.html")
 
+
 @app.route("/register/survey", methods=["GET", "POST"])
 @login_required
 def survey():
     if request.method == "POST":
         from models.authentication import UserAuthentication
-        
-        survey = UserAuthentication().survey()
-        database.add_survey(session["user"], survey)
-        resp = jsonify(success=True)
-        return resp
+
+        return UserAuthentication().survey(session["user"])
     return render_template("survey.html")
 
 
@@ -109,8 +107,10 @@ def profile():
 @app.route("/chat")
 @login_required
 def chat():
-    messages = database.display_messages();
-    return render_template("chat.html", messages=messages, username=session["user"]["name"], room=1)
+    messages = database.display_messages()
+    return render_template(
+        "chat.html", messages=messages, username=session["user"]["name"], room=1
+    )
 
 
 @socketio.on("send_message")

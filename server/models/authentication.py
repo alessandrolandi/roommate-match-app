@@ -15,16 +15,21 @@ class UserAuthentication:
             return self.start_session(user)
 
         return jsonify({"error": "Something went wrong"}), 400
-    
-    def survey(self):
+
+    def survey(self, user):
         survey = [
             request.form.get("interests"),
             request.form.get("bedtime"),
             request.form.get("tidy"),
-            request.form.get("quiet")
+            request.form.get("quiet"),
         ]
-        
-        return survey
+
+        if db.users.find_one_and_update(
+            {"username": user.get("username")}, {"$push": {"survey": survey}}
+        ):
+            return jsonify({"Success": "Survey added"}), 200
+
+        return jsonify({"error": "Something went wrong"}), 400
 
     def login(self):
         user = db.users.find_one({"username": request.form.get("username")})
