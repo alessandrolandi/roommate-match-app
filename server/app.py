@@ -87,7 +87,7 @@ def signout():
 @app.route("/home/")
 @login_required
 def home():
-    matches = database.get_matched_users(session["user"])
+    matches = session["user"].get("matches")
     return render_template("home.html", matches=matches)
 
 
