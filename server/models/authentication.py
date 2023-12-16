@@ -19,10 +19,10 @@ class UserAuthentication:
 
     def survey(self, user):
         survey = [
-            request.form.get("interests"),
-            request.form.get("bedtime"),
-            request.form.get("tidy"),
-            request.form.get("quiet"),
+            int(request.form.get("interests")),
+            int(request.form.get("bedtime")),
+            int(request.form.get("tidy")),
+            int(request.form.get("quiet")),
         ]
 
         if db.users.find_one_and_update(
