@@ -43,27 +43,11 @@ class DatabaseProxy:
         return matches
 
 
-    def add_user_matches(self, user, matches):
+    def add_user_match(self, user, match):
         self.db.users.find_one_and_update(
             {"username": user.get("username")}, {'$push': {'matches': match}}
             )    
-        
-    def append_user_match(self, user1, user2):
-        username1 = user1["username"]
-        username2 = user2["username"]
-        user1_survey = db.users.find_one({"username": username1})["survey"] 
-        user2_survey = db.users.find_one({"username": username2})["survey"]  
-        corr = np.corr(user1_survey, user2_survey)
-
-        self.append_user_match(user1, (username2, corr))
-        self.append_user_match(user2, (username1, corr))
-        
-    def append_user(self, user):
-        users = db.users.find({"survey": True})
-
-        for user_i in users:
-            self.append_user_match(user1, user2)
-
+    
     def edit_user_profile(self,user):
         self.db.users.find_one_and_update(
             {"username": user.get("username")},

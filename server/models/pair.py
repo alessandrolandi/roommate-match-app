@@ -2,22 +2,26 @@ import pymongo
 import requests
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-import pandas as pd
 import numpy as np
 import json
 from app import db
+from database import add_user_match
 
-users = list(db.user.find({"survey": True}))
-print(users)
+class CompareUsers():
 
-survey = dict()
-for user in users:
-    #user.survey should be stored as a dictionary, with keys uniform across all users
-    # corresp. to questions and values corresponding to numerical values for survey questions
-    #insert 
-    survey.append(user["survey"])
+    def append_user_match(self, user1, user2):
+        username1 = user1["username"]
+        username2 = user2["username"]
+        user1_survey = db.users.find_one({"username": username1})["survey"] 
+        user2_survey = db.users.find_one({"username": username2})["survey"]  
+        corr = np.corr(user1_survey, user2_survey)
 
+        add_user_match(user1, (username2, corr))
+        add_user_match(user2, (username1, corr))
+        
+    def compute_user_matches(self, user):
+        users = db.users.find({"survey": True})
 
-survey_df = pd.DataFrame(survey)
-corr = survey_df.corr()
+        for user_i in users:
+            self.append_user_match(user, user_i)
 
