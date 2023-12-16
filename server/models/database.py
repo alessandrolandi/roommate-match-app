@@ -3,8 +3,6 @@ from flask import Flask, request
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import array
-from app import db
-import pandas as pd
 import numpy as np
 
 class DatabaseProxy:

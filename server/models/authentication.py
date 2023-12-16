@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, session
 from passlib.hash import pbkdf2_sha256
 from app import db
 from models.user import UserFactory
-from pair import CompareUsers
+from models.pair import CompareUsers
 
 
 class UserAuthentication:
@@ -29,7 +29,7 @@ class UserAuthentication:
             {"username": user.get("username")}, {"$push": {"survey": survey}}
         ):
             
-            CompareUsers.compute_user_matches(user)
+            CompareUsers().compute_user_matches(user)
             return jsonify({"Success": "Survey added"}), 200
 
         return jsonify({"error": "Something went wrong"}), 400

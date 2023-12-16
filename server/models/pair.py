@@ -1,11 +1,10 @@
 import pymongo
-import requests
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import numpy as np
 import json
 from app import db
-from database import add_user_match
+
 
 class CompareUsers():
 
@@ -16,8 +15,8 @@ class CompareUsers():
         user2_survey = db.users.find_one({"username": username2})["survey"]  
         corr = np.corr(user1_survey, user2_survey)
 
-        add_user_match(user1, (username2, corr))
-        add_user_match(user2, (username1, corr))
+        db.add_user_match(user1, (username2, corr))
+        db.add_user_match(user2, (username1, corr))
         
     def compute_user_matches(self, user):
         users = db.users.find({"survey": True})
