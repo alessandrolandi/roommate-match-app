@@ -27,26 +27,10 @@ class DatabaseProxy:
 
         return users
 
-    def get_matched_users(self, user):
-        session_matches = user.get("matches")
-
-        matches = []
-        for match in session_matches:
-            matches.append(
-                self.db.users.find_one(
-                    {"username": match}, {"password": False}, {"matches": False}
-                )
-            )
-        
-        return matches
-
-
     def add_user_match(self, user, match):
         self.db.users.find_one_and_update(
             {"username": user.get("username")}, {'$push': {'matches': match}}
             )   
-
-        print(f'{self.db.users.find("survey")}') 
     
     def edit_user_profile(self,user):
         self.db.users.find_one_and_update(
