@@ -3,8 +3,7 @@ from flask import Flask, request
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import array
-from datetime import datetime, timedelta
-
+import numpy as np
 
 class DatabaseProxy:
     db = ""
@@ -38,15 +37,16 @@ class DatabaseProxy:
                     {"username": match}, {"password": False}, {"matches": False}
                 )
             )
-
+        
         return matches
 
-    def add_user_matches(self, user, matches):
-        self.db.users.find_one_and_update(
-            {"username": user.get("username")}, {"$push": {"matches": matches}}
-        )
 
-    def edit_user_profile(self, user):
+    def add_user_match(self, user, match):
+        self.db.users.find_one_and_update(
+            {"username": user.get("username")}, {'$push': {'matches': match}}
+            )    
+    
+    def edit_user_profile(self,user):
         self.db.users.find_one_and_update(
             {"username": user.get("username")},
             {"$set": {"name": request.form.get("name")}},
