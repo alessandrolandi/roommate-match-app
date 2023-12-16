@@ -16,6 +16,7 @@ from flask_socketio import SocketIO, join_room, leave_room, send
 import eventlet
 
 
+
 # Create connection to database
 load_dotenv()
 uri = os.getenv("URI")
@@ -69,7 +70,7 @@ def register():
 def survey():
     if request.method == "POST":
         from models.authentication import UserAuthentication
-
+        
         return UserAuthentication().survey(session["user"])
     return render_template("survey.html")
 
