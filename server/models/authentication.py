@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, session
 from passlib.hash import pbkdf2_sha256
 from app import db
 from models.user import UserFactory
+from models.pair import CompareUsers
 
 
 class UserAuthentication:
@@ -18,15 +19,17 @@ class UserAuthentication:
 
     def survey(self, user):
         survey = [
-            request.form.get("interests"),
-            request.form.get("bedtime"),
-            request.form.get("tidy"),
-            request.form.get("quiet"),
+            int(request.form.get("interests")),
+            int(request.form.get("bedtime")),
+            int(request.form.get("tidy")),
+            int(request.form.get("quiet")),
         ]
 
         if db.users.find_one_and_update(
             {"username": user.get("username")}, {"$push": {"survey": survey}}
         ):
+            
+            CompareUsers().compute_user_matches(user)
             return jsonify({"Success": "Survey added"}), 200
 
         return jsonify({"error": "Something went wrong"}), 400
