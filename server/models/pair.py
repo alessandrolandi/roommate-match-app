@@ -16,17 +16,16 @@ class CompareUsers():
 
         #print(f'user_1: {user1_survey}, user_2: {user2_survey}')
 
-        corr = (np.corrcoef(user1_survey, user2_survey) + 1)[0][1]
+        corr = (np.corrcoef(user1_survey, user2_survey) + 1)
         if corr != 0:
             corr /= 2
 
-        corr_str = f"{corr:.0%}"
+        corr_str = f"{corr[0][1]:.0%}"
 
-        database.add_user_match(user1, [user2.get("name"), corr_str]) 
-        database.add_user_match(user2, [user1.get("name"), corr_str])
+        database.add_user_match(user1, [username2, corr_str]) 
+        database.add_user_match(user2, [username1, corr_str])
         
     def compute_user_matches(self, user):
         users = db.users.find()
         for user_i in users:
-            if user_i.get("username") != user.get("username"):
-                self.append_user_match(user, user_i)
+            self.append_user_match(user, user_i)

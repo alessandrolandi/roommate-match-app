@@ -31,6 +31,8 @@ class DatabaseProxy:
         self.db.users.find_one_and_update(
             {"username": user.get("username")}, {'$push': {'matches': match}}
             )   
+
+        print(f'{self.db.users.find("survey")}') 
     
     def edit_user_profile(self,user):
         self.db.users.find_one_and_update(
