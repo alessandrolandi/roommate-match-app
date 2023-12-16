@@ -26,6 +26,71 @@
                 <strong> profile </strong>
             </a>
         </div>
+
+        <div class="message-room-container">
+    
+          <h1>Hello {{username}}, welcome to chat room {{ room }}</h1> 
+
+          <div class="messages-container">
+            <div class="past-messages">
+              {% for message in messages %}
+              <p> {{message.user}}: {{message.message}} </p>
+              {% endfor %}
+            <div id = "messages"></div>
+          </div>
+
+              <form id = "message_input_form">
+                <input id ="message_input" type = "text" placeholder="Enter Message">
+                <button type="submit"></button>
+               </form>
+          </div>
+
+       </div>
     </div>
   </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
+
+
+  <script type="text/javascript" charset="utf-8">
+      const socket = io();
+      socket.on('connect', function() {
+          socket.emit('join_room',{username:"{{username}}",room:"{{room}}" });
+
+          let message_input = document.getElementById('message_input');
+          document.getElementById('message_input_form').onsubmit = function(e){
+            e.preventDefault();
+            
+            let message = message_input.value.trim();
+            if(message.length){
+              console.log(message);
+              socket.emit('send_message',{
+                username: "{{username}}",
+                room:"{{room}}",
+                message:message
+              })
+            }
+            message_input.value = '';
+            message_input.focus();
+          }
+      });
+
+      socket.on('receive_message', function(data){
+        console.log(data);
+        console.log("showing message", data)
+        const newNode = document.createElement('div');
+        newNode.innerHTML=`<b>${data.username}:&nbsp;</b> ${data.message}`
+        document.getElementById('messages').appendChild(newNode)
+
+      });
+
+      socket.on('join_room_announcement',function(data){
+        console.log(data);
+        const newNode = document.createElement('div')
+        newNode.innerHTML = `${data.username} has joined the room`
+        document.getElementById('messages').appendChild(newNode)
+
+
+      })
+  </script>
 </html>

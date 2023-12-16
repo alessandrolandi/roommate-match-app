@@ -7,7 +7,7 @@ import numpy as np
 import json
 from app import db
 
-users = list(db.users.find({"survey": True}))
+users = list(db.user.find({"survey": True}))
 print(users)
 
 survey = dict()

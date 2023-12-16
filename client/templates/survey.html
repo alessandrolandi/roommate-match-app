@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='survey.css') }}"
+    />
+    <script
+      src="https://kit.fontawesome.com/eac29ec11e.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body> 
+    <div class="whole-container">
+        <div class="profile-container">
+
+            <div class="profile">
+                 <form name="survey-form">
+
+                    <h3>Select an interest that best applies to you: </h3>
+                    <input type="radio" name="interests" value="sports" required>
+                    <label for="sports">Sports</label><br>
+
+                    <input type="radio" name="interests" value="vidya">
+                    <label for="vidya">Videogames</label><br>
+
+                    <input type="radio" name="interests" value="film">
+                    <label for="film">Film</label><br>
+
+
+                    <br><h3>At what time do you typically go to bed?:</h3>
+                    <input type="radio" name="bedtime" value="early" required>
+                    <label for="early">9 pm or earlier</label><br>
+
+                    <input type="radio" name="bedtime" value="normal">
+                    <label for="normal">Between 9 pm and 12 am </label><br>
+
+                    <input type="radio" name="bedtime" value="late">
+                    <label for="late">12 am or later</label><br>
+
+
+                    <br><h3>How tidy would you like your room to be?:</h3>
+                    <input type="radio" name="tidy" value="messy" required>
+                    <label for="messy">Messy</label><br>
+
+                    <input type="radio" name="tidy" value="normal">
+                    <label for="normal">No Opinion</label><br>
+
+                    <input type="radio" name="tidy" value="clean">
+                    <label for="clean">Tidy</label><br>
+
+
+                    <br><h3>How quiet would you like your space to be?:</h3>
+                    <input type="radio" name="quiet" value="loud" required>
+                    <label for="loud">Lively with guests</label><br>
+
+                    <input type="radio" name="quiet" value="normal">
+                    <label for="normal">No opinion</label><br>
+
+                    <input type="radio" name="quiet" value="silent">
+                    <label for="quiet">Quiet</label><br>
+                    
+
+                    <p class="error error--hidden"> </p>
+
+                    <input type="submit" value="Submit" class="btn">
+                 </form>
+            </div>
+
+        </div>
+        <script src="/static/js/jquery.js"> </script>
+        <script src="/static/js/script.js"> </script>
+    </div>
+  </body>
+</html>

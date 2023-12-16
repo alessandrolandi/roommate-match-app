@@ -10,6 +10,7 @@ html{
 }
 
 body{
+    width: 100%;
     height: 100%;
     overflow: auto;
     background-color: #31304D;
@@ -17,8 +18,57 @@ body{
 
 .container{
     width: 100%;
-    padding: auto;
-    padding-bottom: 20vh;
+}
+
+.message-room-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    width: 100%;
+    height: max-content;
+}
+
+.message-room-container > h1{
+    color: white;
+}
+
+.messages-container{
+    width: 80%;
+    height: 400px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 25px;
+    display: grid;
+}
+
+.past-messages{
+    margin-left: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    overflow-y: auto;
+}
+
+.messages-container > form{
+    justify-self: center;
+    align-self: end;
+    margin-top: 10px;
+}
+
+.messages-container > form > input{
+    border: 0;
+    outline: none;
+    width: 500px;
+    font-size: 25px;
+    background-color: lightgrey;
+    padding: 10px 40px;
+    margin-bottom: 10px;
+}
+
+.messages-container > form > button{
+    border: 0;
+    outline: none;
 }
 
 .navbar{

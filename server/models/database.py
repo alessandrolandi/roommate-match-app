@@ -7,7 +7,7 @@ from app import db
 import pandas as pd
 import numpy as np
 
-class Database:
+class DatabaseProxy:
     db = ""
 
     def __init__(self):
@@ -24,28 +24,26 @@ class Database:
 
         self.db = mongo.db
 
-
     def get_users(self):
         users = list(self.db.users.find())
 
         return users
 
-
     def get_matched_users(self, user):
         session_matches = user.get("matches")
-        
+
         matches = []
         for match in session_matches:
             matches.append(
-                self.db.users.find_one({"username": match },{"password": False},{"matches": False})
+                self.db.users.find_one(
+                    {"username": match}, {"password": False}, {"matches": False}
+                )
             )
         
         return matches
 
-    #when a user enters the database or updates his survey, we append all of his matches to the database
 
-
-    def append_user_match(self, user, match):
+    def add_user_matches(self, user, matches):
         self.db.users.find_one_and_update(
             {"username": user.get("username")}, {'$push': {'matches': match}}
             )    
@@ -68,6 +66,15 @@ class Database:
 
     def edit_user_profile(self,user):
         self.db.users.find_one_and_update(
-            {"username": user.get("username")} , {'name': request.form.get("name")}
-            )
-        
+            {"username": user.get("username")},
+            {"$set": {"name": request.form.get("name")}},
+        )
+
+    def add_message(self, user, message):
+        self.db.messages.insert_one(
+            {"message": message, "user": user, "time": datetime.today()}
+        )
+
+    def get_messages(self):
+        messages = self.db.messages.find()
+        return messages
