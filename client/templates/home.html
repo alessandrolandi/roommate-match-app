@@ -29,7 +29,8 @@
         <div class="profile-container">
             {% for match in matches %}
                 <div class="profile">
-                    <strong> {{match.name}} </strong>
+                    <strong> {{match[0]}} </strong>
+                    <strong> {{match[1]}} </strong>
                 </div>
             {% endfor %}
         </div>

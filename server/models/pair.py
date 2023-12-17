@@ -6,7 +6,6 @@ import json
 from app import db
 from app import database
 
-
 class CompareUsers():
 
     def append_user_match(self, user1, user2):
@@ -23,10 +22,11 @@ class CompareUsers():
 
         corr_str = f"{corr:.0%}"
 
-        database.add_user_match(user1, [username2, corr_str]) 
-        database.add_user_match(user2, [username1, corr_str])
+        database.add_user_match(user1, [user2.get("name"), corr_str]) 
+        database.add_user_match(user2, [user1.get("name"), corr_str])
         
     def compute_user_matches(self, user):
         users = db.users.find()
         for user_i in users:
-            self.append_user_match(user, user_i)
+            if user_i.get("username") != user.get("username"):
+                self.append_user_match(user, user_i)
