@@ -70,7 +70,7 @@ def register():
 def survey():
     if request.method == "POST":
         from models.authentication import UserAuthentication
-        
+
         return UserAuthentication().survey(session["user"])
     return render_template("survey.html")
 
@@ -88,7 +88,8 @@ def signout():
 @login_required
 def home():
     matches = session["user"].get("matches")
-    return render_template("home.html", matches=matches)
+    sorted_matches = sorted(matches, key = lambda x: int(x[1][:-1]), reverse = True)
+    return render_template("home.html", matches=sorted_matches)
 
 
 @app.route("/profile/", methods=["GET", "POST"])
