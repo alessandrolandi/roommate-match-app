@@ -30,7 +30,9 @@ class UserAuthentication:
         ):
             
             CompareUsers().compute_user_matches(user)
-            return self.start_session(user)
+            newsess = db.users.find_one({"username": user.get("username")})
+            session.clear()
+            return self.start_session(newsess)
 
         return jsonify({"error": "Something went wrong"}), 400
 
@@ -45,6 +47,7 @@ class UserAuthentication:
         return jsonify({"error": "Invalid login credentials "}), 401
 
     def start_session(self, user):
+        del user["password"]
         session["logged_in"] = True
         session["user"] = user
 
