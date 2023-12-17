@@ -7,7 +7,7 @@
 pipenv shell
 ```
 
-**Optionally** If you don't have pipenv installed, in your terminal install pipenv by entering:
+**Optionally** If you don't have pipenv installed, in your terminal install pipenv by entering
 ```bash 
 pip3 install pipenv
 ```
