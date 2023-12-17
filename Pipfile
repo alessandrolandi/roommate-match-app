@@ -21,6 +21,7 @@ eventlet = "*"
 opencv-python = "*"
 distlib = "*"
 setuptools = "*"
+datetime = "*"
 
 [dev-packages]
 
