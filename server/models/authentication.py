@@ -30,7 +30,7 @@ class UserAuthentication:
         ):
             
             CompareUsers().compute_user_matches(user)
-            return jsonify({"Success": "Survey added"}), 200
+            return self.start_session(user)
 
         return jsonify({"error": "Something went wrong"}), 400
 
@@ -45,7 +45,6 @@ class UserAuthentication:
         return jsonify({"error": "Invalid login credentials "}), 401
 
     def start_session(self, user):
-        del user["password"]
         session["logged_in"] = True
         session["user"] = user
 
