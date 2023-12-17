@@ -17,7 +17,7 @@ pip3 install pipenv
 pipenv install
 ```
 
-4. **Run Code**: Navigate to server in your terminal and type
+4. **Run Code**: Navigate to the server folder in the project and type
 ```bash 
 python3 app.py
 ``` 
