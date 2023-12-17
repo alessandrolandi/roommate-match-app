@@ -1,6 +1,6 @@
 # roommate-match-app
 ## Project set up instructions
-1. **Add .env**: Create a .env file and copy/paste the provided .env from the report 
+1. **Add .env**: Create a .env file and copy/paste the provided .env variables from the report 
 
 2. **Set up your Virtual Environment**: Create a virtual environment by running 
 ```bash 
